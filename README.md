@@ -29,6 +29,7 @@ All properties payload:
 - no_motion
 - rotate
 - ip
+
 That would apply to this property, you need write in function:
 ```javascript
 msg.payload.voltage; // or temperature, humidity, no_motion and other...
