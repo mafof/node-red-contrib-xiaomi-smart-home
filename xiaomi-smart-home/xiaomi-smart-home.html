@@ -3,6 +3,14 @@
     	    <label for="node-input-name"><i class="fa fa-tag"></i> Name</label>
     	    <input type="text" id="node-input-name" placeholder="Name">
     	</div>
+    	<div style="margin: 0">
+    		<input type="checkbox" id="node-input-gateway" placeholder="gateway" value="Gateway">Gateway<br>
+    		<input type="checkbox" id="node-input-switch" placeholder="switch" value="Switch">Switch<br>
+    		<input type="checkbox" id="node-input-cube" placeholder="cube" value="Cube">Cube<br>
+    		<input type="checkbox" id="node-input-sensor_ht" placeholder="sensor_ht" value="Sensor_ht">Sensor_ht<br>
+    		<input type="checkbox" id="node-input-motion" placeholder="motion" value="Motion">Motion<br>
+    		<input type="checkbox" id="node-input-magnet" placeholder="magnet" value="Magnet">Magnet<br>
+    	</div>
 </script>
 <script type="text/x-red" data-help-name="xiaomi-smart-home">
 	<p>This help file</p>
@@ -10,16 +18,20 @@
 
 <script type="text/javascript">
 	RED.nodes.registerType('xiaomi-smart-home', {
-		category: 'smart_home',
+		category: 'input',
 		color: "#fb4f14",
 		defaults: {
-			name: {value:""}
+			name: {value:""},
+			gateway:   {value: true},
+			switch:    {value: true},
+			cube:      {value: true},
+			sensor_ht: {value: true},
+			motion:    {value: true},
+			magnet:    {value: true},
 		},
 		inputs: 0,
 		outputs: 1,
 		icon: "bridge.png",
-		label: function() {return this.name||"xiaomi-smart-home"}, //  Имя
-		//inputLabels: "test",
-		//outputLabels: ["test1","test2", "test3"],
+		label: function() {return this.name||"xiaomi-smart-home"},
 	});
 </script>
