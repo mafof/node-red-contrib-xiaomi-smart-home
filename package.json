@@ -10,6 +10,9 @@
 		"xiaomi-smart-home": "xiaomi-smart-home/xiaomi-smart-home.js"
 	}
   },
+  "dependencies": {
+    "node-red-contrib-xiaomi-smart-home": "https://github.com/ratatyq/node-red-contrib-xiaomi-smart-home"
+  },
   "author": "ratatyq",
   "license": "MIT"
 }
