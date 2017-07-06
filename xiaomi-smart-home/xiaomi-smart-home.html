@@ -17,9 +17,36 @@
     	</div>
 </script>
 <script type="text/x-red" data-help-name="xiaomi-smart-home">
-	<p>module for write and read data from device mi home</p>
-  <p><strong>Attention:</strong> you have set only one module on you node-red</p>
-  <p><strong>Attention:</strong> please wait status 'Ready for send command'</p>
+<h3>Module for write/read data from mi home devices</h3>
+<h4><b>Name description:</b></h4>
+<p>Name - any name for the module <br>
+Password - your key whith mobile application</p>
+<h4><b>The data read device:</b></h4>
+<p>Status - status device <br>
+  no_motion - how long there's been no movement <br>
+  voltage - voltage device <br>
+  temperature - temperature device <br>
+  humidity - humidity device <br>
+  rotate - how many degrees rotated device <br>
+  ip - ip device <br>
+  other properties will displayed in msg.payload as string.
+</p>
+<h4><b>Status on the module:</b></h4>
+<p>1. Not found password - you will set password in fiels 'password' <br>
+   2. password not current - you set not valid password <br>
+   3. Not ready for send command - you have to wait a bit <br>
+   4. Ready for send command - module ready for send command
+</p>
+<h4><b>Inputs properties module:</b></h4>
+<p>Next properties need write in module 'inject' having the format JSON: <br>
+  model - the model device (have only been tested on gateway) <br>
+  sid - the identification number device <br>
+  command - the command, example: rgb, mid, and etc. <br>
+  value - the value of the command <br>
+  Example string in format json: <br>
+  {"model": "gateway", "sid": "you sid", "command": "rgb", "value": you value, example: 4286578816}
+</p>
+<a href="https://flows.nodered.org/flow/a35d538fcb9be04fcc2f2fcfc88ed9b3">Example flow</a>
 </script>
 
 <script type="text/javascript">

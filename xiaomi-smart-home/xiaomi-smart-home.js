@@ -4,7 +4,6 @@ module.exports = function(RED) {
 	function smartHomeNode(n) {
 		RED.nodes.createNode(this, n);
 		let node = this;
-		RED.log.info(`n.password ${n.password}`);
 
 		let socket = new Socket(node, RED, {
 			gateway:   n.gateway,

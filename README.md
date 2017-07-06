@@ -1,5 +1,5 @@
 # Smart home
-This is node for node-red which can receive message from device Xiaomi smart home.
+This is node for node-red which can receive message and send command from device Xiaomi smart home.
 Support next devices:
 - Gateway
 - Switch(button)

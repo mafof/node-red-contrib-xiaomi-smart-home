@@ -6,19 +6,14 @@ class Socket {
 		this.devices = devices;
 		this.RED = RED;
 		this.node = node;
-		this.node.status({fill: 'red', shape: 'dot', text: 'Not ready for send command'}); // FIX: перенести в главный файл
+		this.node.status({fill: 'red', shape: 'dot', text: 'Not ready for send command'});
 		this.server = dgram.createSocket('udp4');
 		this.binding();
 		// Данные для отправки данных =>
-		this.IV = new Buffer.from([0x17, 0x99, 0x6d, 0x09, 0x3d, 0x28, 0xdd, 0xb3, 0xba, 0x69, 0x5a, 0x2e, 0x6f, 0x58, 0x56, 0x2e]); // Убрать from
-		if(password != undefined && password != '')
-			this.password = password; // Пароль(взять из телефонного приложения)
-		else
-			return false;
-		this.RED.log.info(`password: ${typeof password}`);
-		this.RED.log.info(`password: ${typeof this.password}`);
+		this.IV = new Buffer.from([0x17, 0x99, 0x6d, 0x09, 0x3d, 0x28, 0xdd, 0xb3, 0xba, 0x69, 0x5a, 0x2e, 0x6f, 0x58, 0x56, 0x2e]);
 		this.token = ''; // Одноразовый токен
 		this.key = ''; // Сам ключ для отправки команд
+		this.password = password; // Пароль(взять из телефонного приложения)
 		this.sendMessageForUpdateToken();
 	}
 
@@ -36,6 +31,7 @@ class Socket {
 
 	message(msg) {
 		let data = JSON.parse(msg);
+		//this.checkValidSendCommand(data);
 		this.checkEncryptDataMessage(data);
 		if(data.cmd != 'write')
 			if(this.checkVaildDevice(data.model))
@@ -101,6 +97,17 @@ class Socket {
 		}
 	}
 
+	/*
+	checkValidSendCommand(msg) {
+		if(msg.data != undefined) {
+			let cp_data = JSON.parse(msg.data);
+			if(cp_data.error != undefined) {
+				this.node.send('wrong password');
+			}
+		}
+	}
+	*/
+
 	sendMessageForUpdateToken() {
 		const command = Buffer(`{"cmd": "get_id_list"}`);
 		this.server.send(command, 0, command.length, 9898, '224.0.0.50', err => {if(err) throw err;});
@@ -114,26 +121,33 @@ class Socket {
 			this.updateToken(msg.token);
 		}
 	}
-
+	
 	updateToken(token) {
 		this.token = token;
-		this.encrypt();
+		if(this.password != undefined && this.password != undefined != null && this.password != '')
+			this.encrypt();
+		else
+			this.node.status({fill: 'red', shape: 'dot', text: 'Not found password'});
 	}
 
 	encrypt() {
-		let cipher = crypto.createCipheriv('aes-128-cbc', this.password, this.IV);
-		this.key = cipher.update(this.token, "ascii", "hex");
-		this.node.status({fill: 'green', shape: 'ring', text: 'Ready for send command'});
+		try {
+			let cipher = crypto.createCipheriv('aes-128-cbc', this.password, this.IV);
+			this.key = cipher.update(this.token, "ascii", "hex");
+			this.node.status({fill: 'green', shape: 'ring', text: 'Ready for send command'});
+		} catch(e) {
+			this.node.status({fill: 'red', shape: 'dot', text: 'password not current'});
+		}
 	}
 
 	sendCommand(dates) {
 		if(this.key == undefined || this.key == null || this.key == '') {
 			this.node.send('Error: this module not ready for send command, please wait');
+			this.node.status({fill: 'red', shape: 'dot', text: 'Not ready for send command'});
 			return false;
 		}
 		let data = dates.payload;
 		let command = `{"cmd": "write", "model": "${data.model}", "sid": "${data.sid}", "short_id": ${data.model == 'gateway' ? 4343:4343}, "data": { \"${data.command}\": ${data.value}, \"key\": \"${this.key}\" }}`;
-		this.RED.log.warn(command);
 		this.server.send(command, 0, command.length, 9898, '224.0.0.50', err => {if(err) throw err;});
 	}
 }
