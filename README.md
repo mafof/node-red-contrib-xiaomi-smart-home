@@ -18,11 +18,9 @@ Note: you can put only one instance on a work surface!
 
 # Data analysis
 received message has next format:
-| msg properties | Description |
-|----------------|------|
-| topic | it sid device |
-| payload | here may be more properties but main event |
-| model | it name device |
+- msg => topic - sid device
+- msg => payload  - here may be more properties but main event
+- msg => model - it name device
 
 All properties payload:
 - voltage
@@ -31,6 +29,7 @@ All properties payload:
 - no_motion
 - rotate
 - ip
+
 That would apply to this property, you need write in function:
 ```javascript
 msg.payload.voltage; // or temperature, humidity, no_motion and other...
