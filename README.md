@@ -1,12 +1,20 @@
 # Smart home
-This is node for node-red which can receive message and send command from device Xiaomi smart home.
-Support next devices:
+This is node for node-red which can receive message and send command from device Xiaomi smart home.<br>
+<b>support all devices*</b> <br>
+support for all devices is experimental technology, and may experience crashes with the module.
+
+100% Support next devices:
 - Gateway
-- Switch(button)
-- Magnet
-- Sensor_ht(temperature and humidity sensor)
-- Cube
-- motion sensor
+- Wireless switch
+- Door and window sensor
+- Temperature and humidity sensor
+- Cube controller
+- Occupancy sensor
+- Wireless switch(One Button)
+- Wireless switch(Two Buttons)
+
+Other device may display not current data!!!
+
 # How install and using
 install this node you can via command in directory node-red
 ```sh
@@ -29,9 +37,15 @@ All properties payload:
 - no_motion
 - rotate
 - ip
+- channel_0
+- channel_1
 
 That would apply to this property, you need write in function:
 ```javascript
 msg.payload.voltage; // or temperature, humidity, no_motion and other...
 return msg;
 ```
+# Example input date:
+input module must be in format JSON, and have next view: <br>
+{"model": "gateway", "sid": "you sid", "command": "you command for example rgb", "value": you value for example 4286578816} <br>
+<a href="https://flows.nodered.org/flow/a35d538fcb9be04fcc2f2fcfc88ed9b3">Example flow</a>

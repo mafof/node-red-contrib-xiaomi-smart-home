@@ -34,7 +34,7 @@ class Socket {
 		//this.checkValidSendCommand(data);
 		this.checkEncryptDataMessage(data);
 		if(data.cmd != 'write')
-			if(this.checkVaildDevice(data.model))
+			if(this.checkVaildDevice(data.model, data))
 				this.node.send({ topic: data.sid, payload: this.checkMessage(JSON.parse(data.data)), model: data.model });
 	}
 
@@ -74,6 +74,12 @@ class Socket {
 				case 'ip':
 					return {ip: data[key].toString()};
 				break;
+				case 'channel_0':
+					return {channel_0: data[key].toString()};
+				break;
+				case 'channel_1':
+					return {channel_1: data[key].toString()};
+				break;
 				default:
 					return data[key].toString();
 				break;
@@ -82,18 +88,36 @@ class Socket {
 	}
 
 	//TODO: Только на вывод информации!
-	checkVaildDevice(model) {
+	checkVaildDevice(model, data) {
 		if(model != undefined && model != null && model != '') {
 			for(let key in this.devices) {
-				if(key == model.toString())
-					if(this.devices[key] == true)
+				if(key == model.toString()) {
+					if(this.devices[key] == true) {
 						return true;
-						else
+					} else {
 						return false;
-						//return `device ${model.toString()} not found`;
+					}
+				} else if(key == 'otherDevice') {
+					if(this.devices[key] == true)
+						this.sendMessageOtherDevice(data);
+					else
+						return false;
+				}
 			}
 		} else {
 			return false;
+		}
+	}
+
+	// TODO: Отправка сообщения если устройство не обнаружено в списках
+	sendMessageOtherDevice(data) {
+		if(data.sid != undefined && data.data != undefined && data.model != undefined) {
+			let complData = JSON.parse(data.data);
+			let msg = {topic: data.sid, payload: {}, model: data.model};
+			for(let key in complData) {
+				msg.payload[`${key}`] = complData[key];
+			}
+			this.node.send(msg);
 		}
 	}
 
@@ -121,7 +145,7 @@ class Socket {
 			this.updateToken(msg.token);
 		}
 	}
-	
+
 	updateToken(token) {
 		this.token = token;
 		if(this.password != undefined && this.password != undefined != null && this.password != '')

@@ -9,11 +9,14 @@
       </div>
     	<div style="margin: 0">
     		<input type="checkbox" id="node-input-gateway" placeholder="gateway" value="Gateway">Gateway<br>
-    		<input type="checkbox" id="node-input-switch" placeholder="switch" value="Switch">Switch<br>
+    		<input type="checkbox" id="node-input-switch" placeholder="switch" value="Switch">Wireless switch<br>
     		<input type="checkbox" id="node-input-cube" placeholder="cube" value="Cube">Cube<br>
     		<input type="checkbox" id="node-input-sensor_ht" placeholder="sensor_ht" value="Sensor_ht">Sensor_ht<br>
     		<input type="checkbox" id="node-input-motion" placeholder="motion" value="Motion">Motion<br>
     		<input type="checkbox" id="node-input-magnet" placeholder="magnet" value="Magnet">Magnet<br>
+        <input type="checkbox" id="node-input-Wrieless_switch" placeholder="Wrieless_switch" value="Wrieless_switch">Wireless switch(One Button)<br>
+        <input type="checkbox" id="node-input-Wrieless_switch_two" placeholder="Wrieless_switch_two" value="Wrieless_switch_two">Wrieless switch(Two button)<br>
+        <input type="checkbox" id="node-input-otherDevice" placeholder="otherDevice" value="otherDevice">Other device(Experimental technology)<br>
     	</div>
 </script>
 <script type="text/x-red" data-help-name="xiaomi-smart-home">
@@ -29,6 +32,8 @@ Password - your key whith mobile application</p>
   humidity - humidity device <br>
   rotate - how many degrees rotated device <br>
   ip - ip device <br>
+  channel_0 - status wireless button <br>
+  channel_1 - status wireless button <br>
   other properties will displayed in msg.payload as string.
 </p>
 <h4><b>Status on the module:</b></h4>
@@ -47,8 +52,14 @@ Password - your key whith mobile application</p>
   {"model": "gateway", "sid": "you sid", "command": "rgb", "value": you value, example: 4286578816}
 </p>
 <a href="https://flows.nodered.org/flow/a35d538fcb9be04fcc2f2fcfc88ed9b3">Example flow</a>
+<h4><b>Suppotr all device:</b></h4>
+<p><b>Attetion:</b> This experimental technology, so may experience crashes <br>
+  In such devices the following list of properties of the output: <br>
+  topic - The sid device <br>
+  payload - The data that came with the device(may be not the correct types) <br>
+  model - The name device
+</p>
 </script>
-
 <script type="text/javascript">
 	RED.nodes.registerType('xiaomi-smart-home', {
 		category: 'input',
@@ -62,6 +73,9 @@ Password - your key whith mobile application</p>
 			sensor_ht: {value: true},
 			motion:    {value: true},
 			magnet:    {value: true},
+      Wrieless_switch: {value: true},
+      Wrieless_switch_two: {value: true},
+      otherDevice: {value: true},
 		},
 		inputs: 1,
 		outputs: 1,

@@ -11,7 +11,10 @@ module.exports = function(RED) {
 			cube:      n.cube,
 			sensor_ht: n.sensor_ht,
 			motion:    n.motion,
-			magnet:    n.magnet
+			magnet:    n.magnet,
+			'86sw1':   n.Wrieless_switch,
+			'86sw2':   n.Wrieless_switch_two,
+			otherDevice: n.otherDevice,
 		}, n.password);
 
 		node.on("input", (msg) => {
