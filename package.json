@@ -1,8 +1,12 @@
 {
   "name": "node-red-contrib-xiaomi-smart-home",
-  "version": "0.1.1",
+  "version": "1.0.0",
   "description": "",
   "scripts": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ratatyq/node-red-contrib-xiaomi-smart-home.git"
+  },
   "keywords": [
     "node-red",
     "xiaomi-smart-home"
@@ -11,9 +15,6 @@
     "nodes": {
       "xiaomi-smart-home": "xiaomi-smart-home/xiaomi-smart-home.js"
     }
-  },
-  "dependencies": {
-    "node-red-contrib-xiaomi-smart-home": "https://github.com/ratatyq/node-red-contrib-xiaomi-smart-home"
   },
   "author": "ratatyq",
   "license": "MIT"
