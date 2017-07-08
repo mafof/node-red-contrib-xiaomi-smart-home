@@ -48,4 +48,8 @@ return msg;
 # Example input date:
 input module must be in format JSON, and have next view: <br>
 {"model": "gateway", "sid": "you sid", "command": "you command for example rgb", "value": you value for example 4286578816} <br>
+At the moment I know of 2 commands: <br>
+1. rgb - set color for gateway.
+2. mid - play music with 0 to 13.
+
 <a href="https://flows.nodered.org/flow/a35d538fcb9be04fcc2f2fcfc88ed9b3">Example flow</a>
