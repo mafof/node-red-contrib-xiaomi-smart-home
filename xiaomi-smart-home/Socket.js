@@ -57,7 +57,7 @@ class Socket {
 					return data[key].toString();
 				break;
 				case 'no_motion':
-					return {no_motion: data[key]};
+					return {no_motion: +data[key]};
 				break;
 				case 'voltage':
 					return {voltage: +data[key]};
