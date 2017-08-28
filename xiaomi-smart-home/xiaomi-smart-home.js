@@ -18,7 +18,8 @@ module.exports = function(RED) {
 		}, n.password);
 
 		node.on("input", (msg) => {
-			socket.sendCommand(msg);
+			let msgJson = JSON.stringify(msg.payload);
+			socket.sendCommand(msgJson);
 		});
 
 		node.on("close", () =>{

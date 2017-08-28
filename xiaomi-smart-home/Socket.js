@@ -30,12 +30,16 @@ class Socket {
 	}
 
 	message(msg) {
-		let data = JSON.parse(msg);
-		//this.checkValidSendCommand(data);
-		this.checkEncryptDataMessage(data);
-		if(data.cmd != 'write')
-			if(this.checkVaildDevice(data.model, data))
-				this.node.send({ topic: data.sid, payload: this.checkMessage(JSON.parse(data.data)), model: data.model });
+		try {
+			let data = JSON.parse(msg);
+			//this.checkValidSendCommand(data);
+			this.checkEncryptDataMessage(data);
+			if(data.cmd != 'write')
+				if(this.checkVaildDevice(data.model, data))
+					this.node.send({ topic: data.sid, payload: this.checkMessage(JSON.parse(data.data)), model: data.model });
+		} catch(e) {
+			this.RED.log.info("[WARN] json parse not work on this message");
+		}
 	}
 
 	listening() {
@@ -170,8 +174,13 @@ class Socket {
 			this.node.status({fill: 'red', shape: 'dot', text: 'Not ready for send command'});
 			return false;
 		}
-		let data = dates.payload;
-		let command = `{"cmd": "write", "model": "${data.model}", "sid": "${data.sid}", "short_id": ${data.model == 'gateway' ? 4343:4343}, "data": { \"${data.command}\": ${data.value}, \"key\": \"${this.key}\" }}`;
+		let data = JSON.parse(dates);
+		let command = null;
+		if(typeof data.value == "string")
+			command = `{"cmd": "write", "model": "${data.model}", "sid": "${data.sid}", "short_id": ${data.model == 'gateway' ? 4343:4343}, "data": { \"${data.command}\": \"${data.value}\", \"key\": \"${this.key}\" }}`;
+		else
+			command = `{"cmd": "write", "model": "${data.model}", "sid": "${data.sid}", "short_id": ${data.model == 'gateway' ? 4343:4343}, "data": { \"${data.command}\": ${data.value}, \"key\": \"${this.key}\" }}`;
+		this.RED.log.info(command);
 		this.server.send(command, 0, command.length, 9898, '224.0.0.50', err => {if(err) throw err;});
 	}
 }
