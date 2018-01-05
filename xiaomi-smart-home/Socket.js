@@ -32,7 +32,6 @@ class Socket {
 	message(msg) {
 		try {
 			let data = JSON.parse(msg);
-			//this.checkValidSendCommand(data);
 			this.checkEncryptDataMessage(data);
 			if(data.cmd != 'write')
 				if(this.checkVaildDevice(data.model, data))
@@ -125,17 +124,6 @@ class Socket {
 		}
 	}
 
-	/*
-	checkValidSendCommand(msg) {
-		if(msg.data != undefined) {
-			let cp_data = JSON.parse(msg.data);
-			if(cp_data.error != undefined) {
-				this.node.send('wrong password');
-			}
-		}
-	}
-	*/
-
 	sendMessageForUpdateToken() {
 		const command = Buffer(`{"cmd": "get_id_list"}`);
 		this.server.send(command, 0, command.length, 9898, '224.0.0.50', err => {if(err) throw err;});
@@ -180,7 +168,6 @@ class Socket {
 			command = `{"cmd": "write", "model": "${data.model}", "sid": "${data.sid}", "short_id": ${data.model == 'gateway' ? 4343:4343}, "data": { \"${data.command}\": \"${data.value}\", \"key\": \"${this.key}\" }}`;
 		else
 			command = `{"cmd": "write", "model": "${data.model}", "sid": "${data.sid}", "short_id": ${data.model == 'gateway' ? 4343:4343}, "data": { \"${data.command}\": ${data.value}, \"key\": \"${this.key}\" }}`;
-		this.RED.log.info(command);
 		this.server.send(command, 0, command.length, 9898, '224.0.0.50', err => {if(err) throw err;});
 	}
 }
