@@ -155,21 +155,44 @@ class Socket {
 			this.node.status({fill: 'red', shape: 'dot', text: 'password not current'});
 		}
 	}
-
-	sendCommand(dates) {
+	
+	sendCommand(_command) {
+		// check have key =>
 		if(this.key == undefined || this.key == null || this.key == '') {
 			this.node.send('Error: this module not ready for send command, please wait');
 			this.node.status({fill: 'red', shape: 'dot', text: 'Not ready for send command'});
 			return false;
 		}
-		let data = JSON.parse(dates);
+
+		let data = JSON.parse(_command);
 		let command = null;
-		if(typeof data.value == "string")
-			command = `{"cmd": "write", "model": "${data.model}", "sid": "${data.sid}", "short_id": ${data.model == 'gateway' ? 4343:4343}, "data": { \"${data.command}\": \"${data.value}\", \"key\": \"${this.key}\" }}`;
-		else
-			command = `{"cmd": "write", "model": "${data.model}", "sid": "${data.sid}", "short_id": ${data.model == 'gateway' ? 4343:4343}, "data": { \"${data.command}\": ${data.value}, \"key\": \"${this.key}\" }}`;
-		this.server.send(command, 0, command.length, 9898, '224.0.0.50', err => {if(err) throw err;});
+		let _tempData = `"data": {`;
+
+		if(typeof data.command == "object") {
+			// check on length command and value =>
+			if(data.command.length != data.value.length) {this.node.send('Error: found a discrepancy in length between command and value'); return false;}
+
+			// add commands =>
+			for(let i=0; i < data.command.length; i++) {
+				if(typeof data.value[i] == "number")
+					_tempData += `\"${data.command[i]}\": ${data.value[i]},`;
+				else if(typeof data.value[i] == "string")
+					_tempData += `\"${data.command[i]}\": \"${data.value[i]}\",`;
+			}
+			_tempData += `\"key\": \"${this.key}\" }}`;
+
+			// build complete command string =>
+			command = `{"cmd": "write", "model": "${data.model}", "sid": "${data.sid}", "short_id": ${data.model == 'gateway' ? 4343:4343}, ${_tempData}`;
+			this.node.send(command);
+		} else {
+			if(typeof data.value == "string")
+				command = `{"cmd": "write", "model": "${data.model}", "sid": "${data.sid}", "short_id": ${data.model == 'gateway' ? 4343:4343}, "data": { \"${data.command}\": \"${data.value}\", \"key\": \"${this.key}\" }}`;
+			else
+				command = `{"cmd": "write", "model": "${data.model}", "sid": "${data.sid}", "short_id": ${data.model == 'gateway' ? 4343:4343}, "data": { \"${data.command}\": ${data.value}, \"key\": \"${this.key}\" }}`;
+		}
+		this.server.send(command, 0, command.length, 9898, '224.0.0.50', err => {if(err) throw err;}); // send command on server
 	}
+
 }
 
 module.exports = Socket;
