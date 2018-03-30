@@ -45,9 +45,6 @@ That would apply to this property, you need write in function:
 msg.payload.voltage; // or temperature, humidity, no_motion and other...
 return msg;
 ```
-# Update
-Added support for volume changes when playing sounds with the gateway
-
 # Example input date:
 input module must be in format JSON, and have next view: <br>
 {"model": "gateway", "sid": "you sid", "command": "you command for example rgb", "value": you value for example 4286578816} <br>

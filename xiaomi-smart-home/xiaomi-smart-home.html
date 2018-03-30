@@ -4,6 +4,8 @@
     	    <input type="text" id="node-input-name" placeholder="Name">
     	</div>
       <div class="form-row">
+      <label for="node-input-sid"><i class="fa fa-key"></i> Sid</label>
+      <input type="text" id="node-input-sid" placeholder="Sid">
           <label for="node-input-password"><i class="fa fa-key"></i> Password</label>
           <input type="text" id="node-input-password" placeholder="Password">
       </div>
@@ -70,15 +72,16 @@ Password - your key whith mobile application</p>
 		defaults: {
 			name: {value:""},
       password: {value:""},
+      sid: {value: ""},
 			gateway:   {value: true},
 			switch:    {value: true},
 			cube:      {value: true},
 			sensor_ht: {value: true},
 			motion:    {value: true},
 			magnet:    {value: true},
-      Wrieless_switch: {value: true},
-      Wrieless_switch_two: {value: true},
-      otherDevice: {value: true},
+            Wrieless_switch: {value: true},
+            Wrieless_switch_two: {value: true},
+            otherDevice: {value: true},
 		},
 		inputs: 1,
 		outputs: 1,

@@ -1,21 +1,53 @@
 {
-  "name": "node-red-contrib-xiaomi-smart-home",
-  "version": "2.0.0",
-  "description": "",
-  "scripts": {},
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/ratatyq/node-red-contrib-xiaomi-smart-home.git"
+  "_from": "node-red-contrib-xiaomi-smart-home@1.0.3",
+  "_id": "node-red-contrib-xiaomi-smart-home@1.0.3",
+  "_inBundle": false,
+  "_integrity": "sha512-OjUy48u1E0015repHUtjfsTQ7bxWqsu+PPradwC2FZgeN3G3jEw2ZW7uDgVEM7ZSr3cGr5VePCCQebfOZm3jsg==",
+  "_location": "/node-red-contrib-xiaomi-smart-home",
+  "_phantomChildren": {},
+  "_requested": {
+    "type": "version",
+    "registry": true,
+    "raw": "node-red-contrib-xiaomi-smart-home@1.0.3",
+    "name": "node-red-contrib-xiaomi-smart-home",
+    "escapedName": "node-red-contrib-xiaomi-smart-home",
+    "rawSpec": "2.0.0",
+    "saveSpec": null,
+    "fetchSpec": "2.0.0"
   },
+  "_requiredBy": [
+    "#USER",
+    "/"
+  ],
+  "_resolved": "https://registry.npmjs.org/node-red-contrib-xiaomi-smart-home/-/node-red-contrib-xiaomi-smart-home-1.0.3.tgz",
+  "_shasum": "9b4b2d52089c692583ba9704fd7a38e852b7f8e1",
+  "_spec": "node-red-contrib-xiaomi-smart-home@1.0.3",
+  "_where": "C:\\Users\\admin\\.node-red",
+  "author": {
+    "name": "mafof"
+  },
+  "bugs": {
+    "url": "https://github.com/maqfof/node-red-contrib-xiaomi-smart-home/issues"
+  },
+  "bundleDependencies": false,
+  "deprecated": false,
+  "description": "This is node for node-red which can receive message and send command from device Xiaomi smart home.<br>\r <b>support all devices*</b> <br>\r support for all devices is experimental technology, and may experience crashes with the module.",
+  "homepage": "https://github.com/mafof/node-red-contrib-xiaomi-smart-home#readme",
   "keywords": [
     "node-red",
     "xiaomi-smart-home"
   ],
+  "license": "MIT",
+  "name": "node-red-contrib-xiaomi-smart-home",
   "node-red": {
     "nodes": {
       "xiaomi-smart-home": "xiaomi-smart-home/xiaomi-smart-home.js"
     }
   },
-  "author": "ratatyq",
-  "license": "MIT"
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mafof/node-red-contrib-xiaomi-smart-home.git"
+  },
+  "scripts": {},
+  "version": "2.0.0"
 }

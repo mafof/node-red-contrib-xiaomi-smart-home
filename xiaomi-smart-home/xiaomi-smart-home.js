@@ -1,29 +1,32 @@
 module.exports = function(RED) {
 	const Socket = require('./Socket');
-
 	function smartHomeNode(n) {
 		RED.nodes.createNode(this, n);
 		let node = this;
 
-		let socket = new Socket(node, RED, {
-			gateway:   n.gateway,
-			switch:    n.switch,
-			cube:      n.cube,
-			sensor_ht: n.sensor_ht,
-			motion:    n.motion,
-			magnet:    n.magnet,
-			'86sw1':   n.Wrieless_switch,
-			'86sw2':   n.Wrieless_switch_two,
-			otherDevice: n.otherDevice,
-		}, n.password);
+		function isSocketForSluice() {
+			if(global.socketForSluice != null || global.socketForSluice != undefined)
+				return true;
+			return false;
+		}
+
+		if(!isSocketForSluice()) global.socketForSluice = new Socket();
+
+		global.socketForSluice.addNode(node, n);
 
 		node.on("input", (msg) => {
-			let msgJson = JSON.stringify(msg.payload);
-			socket.sendCommand(msgJson);
+			try {
+				let msgJson = JSON.stringify(msg.payload);
+				global.socketForSluice.callSendCommand(n.password, msgJson, n.sid);
+			} catch(e) {console.log(e);}
 		});
 
-		node.on("close", () =>{
-			socket.closeSocket();
+		node.on("close", () => {
+			if(isSocketForSluice()) {
+				console.log("close->isSocketForSluice");
+				global.socketForSluice.closeSocket();
+				global.socketForSluice = null;
+			}
 		});
 	}
 
