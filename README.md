@@ -1,3 +1,50 @@
+# Русский язык
+Данный плагин для системы node-red принимает и отправляет данные для шлюза gateway (Xiaomi Smart Home)<br>
+****
+#Поддерживаемые устройства
+На данный момент поддерживаються следующие устройства:
+- Gateway
+- Wireless switch
+- Door and window sensor
+- Temperature and humidity sensor
+- Cube controller
+- Occupancy sensor
+- Wireless switch(One Button)
+- Wireless switch(Two Buttons)
+- Plug
+****
+#Отправка/принятие данных
+##Настройка перед отправкой данных
+Перед тем как отправить данные необходимо в настройках самого плагина указать 2 пункта, а именно:
+1. sid - Id устройства
+2. key - Ключ который выдается при включение функции `Wireless communication protocol`
+****
+###Отправка данных на шлюз(gateway)
+Для отправки данных на шлюз(gateway) нужно создать элемент ввода(input) и прописать в нем следующие данные(формата json):<br>
+{ <br>
+  "model": "gateway" - Модель устройства к которой надо обратиться<br>
+  "sid": "sid(id) устройства"  - Sid устройства <br>
+  "command": "command" - Команда для отправки на устройство <br>
+  "value": "value" - Значение для команды <br>
+} <br>
+****
+###Принятие данных из шлюза
+Для принятие данных можно воспользоваться элементом вывода(debug),формат данных имеет немного иную структуру от формата отправки данных, а именно:
+msg.model =  Здесь обозначаеться модель устройства
+msg.topic = Здесь отображается sid(id) устройства
+msg.payload = Здесь отображаються данные пришедшие с вывода
+
+Все выводимые свойства с payload:
+- voltage
+- temperature
+- humidity
+- no_motion
+- rotate
+- ip
+- channel_0
+- channel_1
+****
+#English version
 # Smart home
 This is node for node-red which can receive message and send command from device Xiaomi smart home.<br>
 <b>support all devices*</b> <br>
