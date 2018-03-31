@@ -29,7 +29,6 @@ class Socket {
 
 	message(msg) {
     let data = JSON.parse(msg);
-		console.log(msg.toString());
     this.checkEncryptDataMessage(data);
     for(var index in this.getListNode()) {
       if(data.cmd != 'write' && data.cmd != 'get_id_list')
@@ -76,12 +75,11 @@ class Socket {
 
 	encrypt(token) {
 		try {
-      this.isListenCommand = false;
+      		this.isListenCommand = false;
 			let cipher = crypto.createCipheriv('aes-128-cbc', this.password, this.IV);
 			this.key = cipher.update(token, "ascii", "hex");
 			cipher.final('hex');
-      //console.log("call encrypt");
-      this.sendCommand();
+      		this.sendCommand();
 		} catch(e) {
       console.log(e);
 		}
@@ -95,19 +93,13 @@ class Socket {
   }
 
   sendCommand() {
-    //console.log(this.password);
-    //console.log(this.key);
-    //console.log(this.data);
-
     let data = JSON.parse(this.data);
     let command = null;
-    //console.log(data);
     if(typeof data.value == "string")
       command = `{"cmd": "write", "model": "${data.model}", "sid": "${data.sid}", "short_id": ${data.model == 'gateway' ? 4343:4343}, "data": { \"${data.command}\": \"${data.value}\", \"key\": \"${this.key}\" }}`;
     else
       command = `{"cmd": "write", "model": "${data.model}", "sid": "${data.sid}", "short_id": ${data.model == 'gateway' ? 4343:4343}, "data": { \"${data.command}\": ${data.value}, \"key\": \"${this.key}\" }}`;
 
-    //console.log(command);
     this.server.send(command, 0, command.length, 9898, '224.0.0.50', err => {if(err) throw err;});
 
     this.key = null;
@@ -115,22 +107,6 @@ class Socket {
     this.data = null;
 		this.sid = null;
   }
-  /*
-	sendCommand(dates) {
-		if(this.key == undefined || this.key == null || this.key == '') {
-      console.log("key = not have");
-			return false;
-		}
-		let data = JSON.parse(dates);
-		let command = null;
-		if(typeof data.value == "string")
-			command = `{"cmd": "write", "model": "${data.model}", "sid": "${data.sid}", "short_id": ${data.model == 'gateway' ? 4343:4343}, "data": { \"${data.command}\": \"${data.value}\", \"key\": \"${this.key}\" }}`;
-		else
-			command = `{"cmd": "write", "model": "${data.model}", "sid": "${data.sid}", "short_id": ${data.model == 'gateway' ? 4343:4343}, "data": { \"${data.command}\": ${data.value}, \"key\": \"${this.key}\" }}`;
-
-  	this.server.send(command, 0, command.length, 9898, '224.0.0.50', err => {if(err) throw err;});
-	}
-  */
 
   checkMessage(data) {
     for(let key in data) {

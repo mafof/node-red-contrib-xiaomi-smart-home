@@ -53,3 +53,6 @@ At the moment I know of 2 commands: <br>
 2. mid - play music with 0 to 13.
 
 <a href="https://flows.nodered.org/flow/a35d538fcb9be04fcc2f2fcfc88ed9b3">Example flow</a>
+
+# Update
+2.0.0 - fix bugs and added support more gateway
