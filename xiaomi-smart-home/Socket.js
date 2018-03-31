@@ -31,7 +31,7 @@ class Socket {
     let data = JSON.parse(msg);
     this.checkEncryptDataMessage(data);
     for(var index in this.getListNode()) {
-      if(data.cmd != 'write' && data.cmd != 'get_id_list')
+      if(data.cmd != 'write' && data.cmd != 'get_id_list' && this.checkSendCurrentDevice(data.model, this.node[index][1]))
         this.node[index][0].send({topic: data.sid, payload: this.checkMessage(JSON.parse(data.data)), model: data.model});
     }
 	}
@@ -143,6 +143,14 @@ class Socket {
         break;
       }
     }
+  }
+
+  // TODO: Проверка флаг в настройках плагина
+  checkSendCurrentDevice(model, modelsNode) {
+    for(var key in modelsNode)
+      if(key == model && modelsNode[key] == true)
+        return true;
+    return false;
   }
 }
 module.exports = Socket;

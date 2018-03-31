@@ -23,7 +23,6 @@ module.exports = function(RED) {
 
 		node.on("close", () => {
 			if(isSocketForSluice()) {
-				console.log("close->isSocketForSluice");
 				global.socketForSluice.closeSocket();
 				global.socketForSluice = null;
 			}
