@@ -11,9 +11,9 @@
     "raw": "node-red-contrib-xiaomi-smart-home@1.0.3",
     "name": "node-red-contrib-xiaomi-smart-home",
     "escapedName": "node-red-contrib-xiaomi-smart-home",
-    "rawSpec": "2.0.2",
+    "rawSpec": "2.0.3",
     "saveSpec": null,
-    "fetchSpec": "2.0.2"
+    "fetchSpec": "2.0.3"
   },
   "_requiredBy": [
     "#USER",
@@ -49,5 +49,5 @@
     "url": "git+https://github.com/mafof/node-red-contrib-xiaomi-smart-home.git"
   },
   "scripts": {},
-  "version": "2.0.2"
+  "version": "2.0.3"
 }
