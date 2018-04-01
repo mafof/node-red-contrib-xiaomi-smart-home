@@ -28,7 +28,7 @@ class Socket {
 	}
 
 	message(msg) {
-    let data = JSON.parse(msg);
+		let data = JSON.parse(msg);
     this.checkEncryptDataMessage(data);
     for(var index in this.getListNode()) {
       if(data.cmd != 'write' && data.cmd != 'get_id_list' && this.checkSendCurrentDevice(data.model, this.node[index][1]))
@@ -74,7 +74,7 @@ class Socket {
 
 	encrypt(token) {
 		try {
-      		this.isListenCommand = false;
+      this.isListenCommand = false;
 			let cipher = crypto.createCipheriv('aes-128-cbc', this.password, this.IV);
 			this.key = cipher.update(token, "ascii", "hex");
 			cipher.final('hex');
@@ -134,7 +134,9 @@ class Socket {
   checkSendCurrentDevice(model, modelsNode) {
     for(var key in modelsNode)
       if(key == model && modelsNode[key] == true)
-        return true;
+				return true;
+		if(model == "sensor_motion.aq2" && modelsNode['sensor_motion_aq2'] == true)
+			return true;
     return false;
   }
 }
