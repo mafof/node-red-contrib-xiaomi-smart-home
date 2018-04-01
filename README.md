@@ -87,5 +87,5 @@ At the moment I know of 2 commands: <br>
 <a href="https://flows.nodered.org/flow/a35d538fcb9be04fcc2f2fcfc88ed9b3">Example flow</a>
 
 # Update
-2.0.0 - fix bugs and added support more gateway
-2.0.4 - add more devices
+- 2.0.0 - fix bugs and added support more gateway
+- 2.0.4 - add more devices
