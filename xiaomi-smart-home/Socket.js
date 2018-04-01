@@ -65,7 +65,6 @@ class Socket {
 	//TODO: Проверка изменение статуса можно ли начать посылать команды.
 	checkEncryptDataMessage(msg) {
     if(!this.isListenCommand) return;
-
     if(msg.cmd == 'get_id_list_ack' && msg.sid == this.sid) {
 			this.encrypt(msg.token);
 		} else if(msg.cmd == 'heartbeat' && msg.model == 'gateway' && msg.sid == this.sid) {
@@ -97,9 +96,24 @@ class Socket {
     let command = null;
     if(typeof data.value == "string")
       command = `{"cmd": "write", "model": "${data.model}", "sid": "${data.sid}", "short_id": ${data.model == 'gateway' ? 4343:4343}, "data": { \"${data.command}\": \"${data.value}\", \"key\": \"${this.key}\" }}`;
-    else
-      command = `{"cmd": "write", "model": "${data.model}", "sid": "${data.sid}", "short_id": ${data.model == 'gateway' ? 4343:4343}, "data": { \"${data.command}\": ${data.value}, \"key\": \"${this.key}\" }}`;
-
+		else if(typeof data.value == 'object') {
+			var _res = {};
+			for(var i=0; i < data.value.length; i++) {
+				if(i == 0) {
+					let _command = data.command[i];
+					let _valueCommand = data.value[i]
+					eval("_res = Object.assign({}, {"+_command+":"+_valueCommand+"})");
+				} else {
+					let _command = data.command[i];
+					let _valueCommand = data.value[i];
+					eval("_res = Object.assign(_res, {"+_command+":"+_valueCommand+"})");
+				}
+			}
+			_res = Object.assign(_res, {key: this.key});
+			command = `{"cmd": "write", "model": "${data.model}", "sid": "${data.sid}", "short_id": ${data.model == 'gateway' ? 4343:4343}, "data": ${JSON.stringify(_res)}}`;
+		} else {
+			command = `{"cmd": "write", "model": "${data.model}", "sid": "${data.sid}", "short_id": ${data.model == 'gateway' ? 4343:4343}, "data": { \"${data.command}\": ${data.value}, \"key\": \"${this.key}\" }}`;
+		}
     this.server.send(command, 0, command.length, 9898, '224.0.0.50', err => {if(err) throw err;});
 
     this.key = null;
