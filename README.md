@@ -5,13 +5,15 @@
 На данный момент поддерживаються следующие устройства:
 - Gateway
 - Wireless switch
+- Wireless switch(One Button)
+- Wireless switch(Two Buttons)
 - Door and window sensor
 - Temperature and humidity sensor
 - Cube controller
 - Occupancy sensor
-- Wireless switch(One Button)
-- Wireless switch(Two Buttons)
 - Plug
+- Embeddable plug
+- Gas sensor
 ****
 #Отправка/принятие данных
 ##Настройка перед отправкой данных
@@ -33,16 +35,6 @@
 msg.model =  Здесь обозначаеться модель устройства
 msg.topic = Здесь отображается sid(id) устройства
 msg.payload = Здесь отображаються данные пришедшие с вывода
-
-Все выводимые свойства с payload:
-- voltage
-- temperature
-- humidity
-- no_motion
-- rotate
-- ip
-- channel_0
-- channel_1
 ****
 #English version
 # Smart home
@@ -53,12 +45,15 @@ support for all devices is experimental technology, and may experience crashes w
 100% Support next devices:
 - Gateway
 - Wireless switch
+- Wireless switch(One Button)
+- Wireless switch(Two Buttons)
 - Door and window sensor
 - Temperature and humidity sensor
 - Cube controller
 - Occupancy sensor
-- Wireless switch(One Button)
-- Wireless switch(Two Buttons)
+- Plug
+- Embeddable plug
+- Gas sensor
 
 Other device may display not current data!!!
 
