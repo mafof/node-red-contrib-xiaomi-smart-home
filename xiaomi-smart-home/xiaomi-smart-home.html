@@ -12,14 +12,15 @@
     	<div style="margin: 0">
     		<input type="checkbox" id="node-input-gateway" placeholder="gateway" value="Gateway">Gateway<br>
     		<input type="checkbox" id="node-input-switch" placeholder="switch" value="Switch">Wireless switch<br>
+        <input type="checkbox" id="node-input-86sw1" placeholder="86sw1" value="86sw1">Wireless switch(One Button)<br>
+        <input type="checkbox" id="node-input-86sw2" placeholder="86sw2" value="86sw2">Wrieless switch(Two button)<br>
     		<input type="checkbox" id="node-input-cube" placeholder="cube" value="Cube">Cube<br>
     		<input type="checkbox" id="node-input-sensor_ht" placeholder="sensor_ht" value="Sensor_ht">Sensor_ht<br>
     		<input type="checkbox" id="node-input-motion" placeholder="motion" value="Motion">Motion<br>
     		<input type="checkbox" id="node-input-magnet" placeholder="magnet" value="Magnet">Magnet<br>
-        <input type="checkbox" id="node-input-Wrieless_switch" placeholder="Wrieless_switch" value="Wrieless_switch">Wireless switch(One Button)<br>
-        <input type="checkbox" id="node-input-Wrieless_switch_two" placeholder="Wrieless_switch_two" value="Wrieless_switch_two">Wrieless switch(Two button)<br>
-        <input type="checkbox" id="node-input-plug" placeholder="plug" value="Wrieless_switch_two">Plug<br>
-        <input type="checkbox" id="node-input-86plug" placeholder="86plug" value="86plug">86plug<br>
+        <input type="checkbox" id="node-input-plug" placeholder="plug" value="plug">Plug<br>
+        <input type="checkbox" id="node-input-86plug" placeholder="86plug" value="86plug">embeddable plug<br>
+        <input type="checkbox" id="node-input-natgas" placeholder="natgas" value="natgas">gas sensor<br>
     	</div>
 </script>
 <script type="text/x-red" data-help-name="xiaomi-smart-home">
@@ -69,21 +70,23 @@ Password - your key whith mobile application</p>
 <script type="text/javascript">
 	RED.nodes.registerType('xiaomi-smart-home', {
 		category: 'input',
-		color: "#fb4f14",
+		color: "#329D27",
 		defaults: {
-			name: {value:""},
-      password: {value:""},
-      sid: {value: ""},
-			gateway:   {value: true},
-			switch:    {value: true},
-			cube:      {value: true},
-			sensor_ht: {value: true},
-			motion:    {value: true},
-			magnet:    {value: true},
-            Wrieless_switch: {value: true},
-            Wrieless_switch_two: {value: true},
-            plug: {value: true},
-            otherDevice: {value: true},
+			name:                {value:""},
+      password:            {value:""},
+      sid:                 {value: ""},
+			gateway:             {value: true},
+			switch:              {value: true},
+			cube:                {value: true},
+			sensor_ht:           {value: true},
+			motion:              {value: true},
+			magnet:              {value: true},
+      plug:                {value: true},
+      '86plug':            {value: true},
+      '86sw1':             {value: true},
+      '86sw2':             {value: true},
+      'sensor_motion.aq2': {value: true},
+      natgas:              {value: true},
 		},
 		inputs: 1,
 		outputs: 1,
