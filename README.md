@@ -22,19 +22,19 @@
 2. key - Ключ который выдается при включение функции `Wireless communication protocol`
 ****
 ###Отправка данных на шлюз(gateway)
-Для отправки данных на шлюз(gateway) нужно создать элемент ввода(input) и прописать в нем следующие данные(формата json):<br>
-{ <br>
-  "model": "gateway" - Модель устройства к которой надо обратиться<br>
-  "sid": "sid(id) устройства"  - Sid устройства <br>
-  "command": "command" - Команда для отправки на устройство <br>
-  "value": "value" - Значение для команды <br>
-} <br>
+Для отправки данных на шлюз(gateway) нужно создать элемент ввода(input) и прописать в нем следующие данные(формата json):
+{
+  "model": "gateway" - Модель устройства к которой надо обратиться
+  "sid": "sid(id) устройства"  - Sid устройства
+  "command": "command" - Команда для отправки на устройство
+  "value": "value" - Значение для команды
+}
 ****
 ###Принятие данных из шлюза
 Для принятие данных можно воспользоваться элементом вывода(debug),формат данных имеет немного иную структуру от формата отправки данных, а именно:
-msg.model =  Здесь обозначаеться модель устройства
-msg.topic = Здесь отображается sid(id) устройства
-msg.payload = Здесь отображаються данные пришедшие с вывода
+- msg.model =  Здесь обозначаеться модель устройства
+- msg.topic = Здесь отображается sid(id) устройства
+- msg.payload = Здесь отображаються данные пришедшие с вывода
 ****
 #English version
 # Smart home
@@ -72,16 +72,6 @@ received message has next format:
 - msg => payload  - here may be more properties but main event
 - msg => model - it name device
 
-All properties payload:
-- voltage
-- temperature
-- humidity
-- no_motion
-- rotate
-- ip
-- channel_0
-- channel_1
-
 That would apply to this property, you need write in function:
 ```javascript
 msg.payload.voltage; // or temperature, humidity, no_motion and other...
@@ -98,3 +88,4 @@ At the moment I know of 2 commands: <br>
 
 # Update
 2.0.0 - fix bugs and added support more gateway
+2.0.4 - add more devices

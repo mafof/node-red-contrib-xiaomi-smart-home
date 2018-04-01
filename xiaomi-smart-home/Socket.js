@@ -109,40 +109,11 @@ class Socket {
   }
 
   checkMessage(data) {
-    for(let key in data) {
-      switch(key) {
-        case 'status':
-          return data[key].toString();
-        break;
-        case 'no_motion':
-          return {no_motion: +data[key]};
-        break;
-        case 'voltage':
-          return {voltage: +data[key]};
-        break;
-        case 'temperature':
-          return {temperature: +data[key]};
-        break;
-        case 'humidity':
-          return {humidity: +data[key]};
-        break;
-        case 'rotate':
-          return {rotate: data[key]};
-        break;
-        case 'ip':
-          return {ip: data[key].toString()};
-        break;
-        case 'channel_0':
-          return {channel_0: data[key].toString()};
-        break;
-        case 'channel_1':
-          return {channel_1: data[key].toString()};
-        break;
-        default:
-          return data[key].toString();
-        break;
-      }
-    }
+		for(let key in data) {
+			if(key == 'status')
+				return data[key].toString();
+			return data;
+		}
   }
 
   // TODO: Проверка флаг в настройках плагина
