@@ -1,33 +1,33 @@
 module.exports = function(RED) {
-	const Socket = require('./Socket');
-	function smartHomeNode(n) {
-		RED.nodes.createNode(this, n);
-		let node = this;
+    const Socket = require('./Socket');
 
-		function isSocketForSluice() {
-			if(global.socketForSluice != null || global.socketForSluice != undefined)
-				return true;
-			return false;
-		}
+    function smartHomeNode(n) {
+        RED.nodes.createNode(this, n);
+        let node = this;
 
-		if(!isSocketForSluice()) global.socketForSluice = new Socket();
+        function isSocketForSluice() {
+            if(global.socketForSluice != null || global.socketForSluice != undefined) return true;
+            return false;
+        }
 
-		global.socketForSluice.addNode(node, n);
+        if(!isSocketForSluice()) global.socketForSluice = new Socket();
 
-		node.on("input", (msg) => {
-			try {
-				let msgJson = JSON.stringify(msg.payload);
-				global.socketForSluice.callSendCommand(n.password, msgJson, n.sid);
-			} catch(e) {console.log(e);}
-		});
+        global.socketForSluice.addNode(node, n);
+        
+        node.on("input", (msg) => {
+            try {
+                let msgJson = JSON.stringify(msg.payload);
+                global.socketForSluice.callSendCommand(n.password, msgJson, n.sid);
+            } catch(e) {console.log(e);}
+        });
 
-		node.on("close", () => {
-			if(isSocketForSluice()) {
-				global.socketForSluice.closeSocket();
-				global.socketForSluice = null;
-			}
-		});
-	}
+        node.on("close", () => {
+            if(isSocketForSluice()) {
+                global.socketForSluice.closeSocket();
+                global.socketForSluice = null;
+            }
+        });
+    }
 
-	RED.nodes.registerType("xiaomi-smart-home", smartHomeNode);
+    RED.nodes.registerType("xiaomi-smart-home", smartHomeNode);
 }
